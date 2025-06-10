@@ -42,5 +42,10 @@ def query(query):
     messages.append({"role": "assistant", "content": assistant_reply})
     return assistant_reply[:256]
 
+@app.route('/ping')
+def ping():
+    return "pong", 200
+
+
 if __name__ == '__main__':
     app.run(port=11223, host="0.0.0.0", debug=True)
