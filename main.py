@@ -1,11 +1,12 @@
 # How to Add AI to Your Live Stream Chat using HuggingFace API
 # File Provided by EXPOSUREEE - Abhishek Mishra
 
+import os
 from flask import Flask
 from huggingface_hub import InferenceClient
 
-# Initialize the client with your Hugging Face API token
-client = InferenceClient(api_key="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")
+client = InferenceClient(api_key=os.getenv("HF_TOKEN"))
+
 
 # Define the initial conversation
 messages = [
