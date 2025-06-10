@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: ai-chat-api
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+    plan: free
+    envVars:
+      - key: HF_TOKEN
+        value: your_huggingface_api_key
