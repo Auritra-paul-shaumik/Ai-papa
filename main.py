@@ -27,12 +27,14 @@ def query(query):
     
     stream = client.chat.completions.create(
     model="mistralai/Mistral-7B-Instruct-v0.1", 
-    messages=messages, 
+    messages=messages,
+    provider="mistralai",  # ✅ Explicitly define provider
     temperature=0.5,
     max_tokens=2048,
     top_p=0.7,
     stream=True
 )
+
 
 
     assistant_reply = ""
