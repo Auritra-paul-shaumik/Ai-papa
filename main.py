@@ -6,19 +6,24 @@ import google.generativeai as genai
 # Load .env file
 load_dotenv()
 
-# Initialize Gemini
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+# Configure Gemini
+api_key = os.getenv("GEMINI_API_KEY")
+if not api_key:
+    raise ValueError("GEMINI_API_KEY is missing in your .env file.")
+genai.configure(api_key=api_key)
+
+# Load Gemini model
 model = genai.GenerativeModel("gemini-pro")
 
-# Flask app setup
+# Initialize Flask app
 app = Flask(__name__)
 
-@app.route('/')
+@app.route("/")
 def home():
-    return "Gemini AI is ready! Ask something in the URL."
+    return "Welcome to your Gemini-powered chatbot! Ask a question via the URL: /your-question"
 
-@app.route('/<query>')
-def query(query):
+@app.route("/<query>")
+def ask_gemini(query):
     try:
         prompt = f"{query} - reply under 200 characters and don't say how many characters you used."
         response = model.generate_content(prompt)
@@ -26,9 +31,9 @@ def query(query):
     except Exception as e:
         return f"Error: {str(e)}"
 
-@app.route('/ping')
+@app.route("/ping")
 def ping():
     return "pong", 200
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(port=11223, host="0.0.0.0", debug=True)
