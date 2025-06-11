@@ -18,7 +18,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return "hello chat"
+    return "Hello friend, What can I help with? Ask me anything....."
 
 @app.route("/<query>")
 def query(query):
