@@ -25,15 +25,16 @@ def query(query):
     # Append the condition to the user's query
     query_with_condition = f"{query} - reply under 200 characters in total and don't tell me how many characters you used in your response."
     
-    messages.append({"role": "user", "content": query_with_condition})
     stream = client.chat.completions.create(
-            model="Qwen/Qwen2.5-72B-Instruct", 
-            messages=messages, 
-            temperature=0.5,
-            max_tokens=2048,
-            top_p=0.7,
-            stream=True
-        )
+    model="mistralai/Mistral-7B-Instruct-v0.1", 
+    messages=messages, 
+    temperature=0.5,
+    max_tokens=2048,
+    top_p=0.7,
+    stream=True
+)
+
+
     assistant_reply = ""
     for chunk in stream:
         if chunk.choices[0].delta.get("content"):
